@@ -11,11 +11,10 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableScheduling
-// ensures that a background task executor is created. Without it, nothing gets scheduled.
-public class SpringBootBatchApp {
+public class SpringBootDataloaderBatchApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootBatchApp.class, args);
+        SpringApplication.run(SpringBootDataloaderBatchApplication.class, args);
     }
     
     @Bean

@@ -1,40 +1,37 @@
 package com.weatherinfoservice;
 
-import javax.servlet.RequestDispatcher;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-
+@RestController
 public class ApplicationErrorController extends AbstractErrorController {
 
+	private static final String ERROR_PATH=  "/error";
+	
 	public ApplicationErrorController(ErrorAttributes errorAttributes) {
 		super(errorAttributes);
 	}
 
-	@RequestMapping("/error")
+	@RequestMapping(value=ERROR_PATH, produces = MediaType.TEXT_HTML_VALUE)
 	public String handleError(HttpServletRequest request) {
-	    Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-	    Object message= request.getAttribute(RequestDispatcher.ERROR_EXCEPTION_TYPE);
-	    Object path= request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);
-	    if (status != null) {
-	        Integer statusCode = Integer.valueOf(status.toString());
-	        
-	        if(statusCode == HttpStatus.BAD_REQUEST.value()) {
-	            return "ERRRO-400 "+ "messages:: " +message.toString()+ " Path:: " +path;
-	        }
-	        else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-	            return "ERRRO-500 "+ "messages:: " +message.toString()+ " Path:: " +path;
-	        }
-	    }
-	    return "error";
+	    
+		Map<String, Object> responseStatus= super.getErrorAttributes(request, false);
+		return "<html><center><b>"+"<h3 " + "style=" + "color:Red;" + ">"
+		+"uri path:: "+"<i>"+responseStatus.get("path")+"</i>" +" is not mapped || failed with response code:: "
+		+"<i>"+responseStatus.get("status")+ " (" +responseStatus.get("error")+ ")"+"</i>"  +"</h3>"+"<br/>"
+		+"<p " + "style=" + "color:DodgerBlue;" + ">"+ "for service uri mapping info please access the uri path as :: " +"/rest-info-service/swagger-ui.html"+"</p>"
+		+"</b></center></html>";
 	}
 
 	  @Override
 	  public String getErrorPath() {
-	      return "/error";
+	      return ERROR_PATH;
 	  }
 }

@@ -15,26 +15,21 @@ public class ErrorRequestController extends AbstractErrorController {
 
 	private static final String ERROR_PATH=  "/error";
 	
-	 public ErrorRequestController(ErrorAttributes errorAttributes) {
+	public ErrorRequestController(ErrorAttributes errorAttributes) {
 		super(errorAttributes);
-		// TODO Auto-generated constructor stub
 	}
 
-
-
-	@RequestMapping(value =ERROR_PATH, produces=MediaType.TEXT_HTML_VALUE)
-	public String errorHandler(HttpServletRequest request) {
-		//HttpStatus status= super.getStatus(request);
-		Map<String, Object> errorattributes= super.getErrorAttributes(request, true);
-		
-		return "Url Pattern:: "+"<html><b>"+errorattributes.get("path")+ "</b></html>" +" is not mapped || failed with response code:: " +"<html><b>"+
-		errorattributes.get("status")+ " (" +errorattributes.get("error")+ ")" + "</b></html>";
+	@RequestMapping(value=ERROR_PATH, produces = MediaType.TEXT_HTML_VALUE)
+	public String handleError(HttpServletRequest request) {
+	    
+	    Map<String, Object> responseStatus= super.getErrorAttributes(request, false);
+			return "<html><center><b>"+"<h3 " + "style=" + "color:Red;" + ">"
+			+"uri path:: "+"<i>"+responseStatus.get("path")+"</i>" +" is not mapped || failed with response code:: "
+			+"<i>"+responseStatus.get("status")+ " (" +responseStatus.get("error")+ ")"+"</i>"  +"</h3></b></center></html>";
 	}
 
-	@Override
-	public String getErrorPath() {
-		// TODO Auto-generated method stub
-		return ERROR_PATH;
-	}
-	
+	  @Override
+	  public String getErrorPath() {
+	      return ERROR_PATH;
+	  }
 }
