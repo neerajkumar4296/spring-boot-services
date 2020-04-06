@@ -19,6 +19,7 @@
 *.MF
 *.properties
 
+
 # Package Files #
 *.jar
 *.war
@@ -27,6 +28,9 @@
 *.zip
 *.tar.gz
 *.rar
+*.cmd
+*.properties
+*.springBeans
 
 #target files
 target/
