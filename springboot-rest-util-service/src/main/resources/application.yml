@@ -1,0 +1,43 @@
+datasource1:
+  h2:
+    jdbc-url: jdbc:h2:file:C:/Users/neerkuma/workspace/database/data1
+    driverClassName: org.h2.Driver
+    username: sa
+    password: null
+    
+spring:
+    h2:
+     console: 
+        enabled: true
+    
+datasource2:
+  h2:
+    jdbc-url: jdbc:h2:file:C:/Users/neerkuma/workspace/database/data2
+    driverClassName: org.h2.Driver
+    username: system
+    password: null
+    
+file:
+  upload-dir: C:\Users\neerkuma\workspace\filestouse\uploads\
+  file-name: copiedfile
+  file-name-extn: .txt
+  
+otpserviceprovider:
+     basicuri: 'http://localhost:8089/spring-batch/app/generate/randompass'
+     deafultpasslength: 5
+  
+server:
+    port: 8090
+    servlet.context-path: /spring-boot-app
+    
+logging:
+  level:
+    root: info
+    com.example.demo: info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 
+        -  '*'
