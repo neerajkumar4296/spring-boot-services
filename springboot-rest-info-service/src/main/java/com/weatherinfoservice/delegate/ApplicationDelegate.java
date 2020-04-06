@@ -1,8 +1,6 @@
 package com.weatherinfoservice.delegate;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Comparator;
@@ -57,10 +55,9 @@ public class ApplicationDelegate {
 
 	public String analyzeContentInTheFile(MultipartFile inputFile) throws IOException {
 		if(inputFile.isEmpty()) {
-			throw new BadServiceRequestException("Input File Provide is Blank...Kindly Check");
+			throw new BadServiceRequestException("Input Text File Provided is Blank...Kindly Check");
 		}
 		BufferedReader reader= new BufferedReader(new InputStreamReader(inputFile.getInputStream()));
-		reader.lines().mapToInt(String::length).max().getAsInt();
 			return reader.lines()
 					.max(Comparator.comparingInt(String::length))
 					.get();

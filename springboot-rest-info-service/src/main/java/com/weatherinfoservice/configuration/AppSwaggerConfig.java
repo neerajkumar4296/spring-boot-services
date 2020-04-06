@@ -23,11 +23,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class AppSwaggerConfig { 
 	
+	private static final String BASE_PACKAGE= "com.weatherinfoservice";
+	
     @Bean
     public Docket api() { 
         return new Docket(DocumentationType.SWAGGER_2)
           .select()                                  
-          .apis(RequestHandlerSelectors.basePackage( "com.weatherinfoservice" ))              
+          .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))             
           .paths(PathSelectors.any())                        
           .build()
           .apiInfo(getApiInfo())

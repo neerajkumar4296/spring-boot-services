@@ -10,7 +10,7 @@ openweatherapi:
 server:
   port: 5000
   servlet:
-    context-path: /weather-info-service
+    context-path: /rest-info-service
     
 
 hometown:
@@ -56,12 +56,10 @@ spring:
 
                     starttls:
                             enable: true  
-  servlet:
-    multipart:
-      max-file-size: 1MB
+
         
        
-weather-info-service:
+rest-info-service:
   users: appuser,appadmin
   passwords: appuserpass,appadminpass
 

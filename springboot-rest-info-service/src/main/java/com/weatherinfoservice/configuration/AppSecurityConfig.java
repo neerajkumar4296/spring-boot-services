@@ -21,10 +21,10 @@ import com.weatherinfoservice.security.ApplicationUserRoles;
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	
-	@Value("${weather-info-service.users}")
+	@Value("${rest-info-service.users}")
 	private List<String> users;
 	
-	@Value("${weather-info-service.passwords}")
+	@Value("${rest-info-service.passwords}")
 	private List<String> passwords;
 	
 	

@@ -112,7 +112,7 @@ public class ApplicationsUtiltyController {
 	}
 	
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Input File Provide is Blank...Kindly Check") })
-	@ApiOperation(value = "Analyzes the content of the file uploaded using this utility service")
+	@ApiOperation(value = "Analyzes the content of the text file uploaded using this utility service")
 	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "file/analyzefile", method = RequestMethod.POST)
 	public String readTheNumberOfLinesFromAFile(@RequestParam(required = true, value = "file") MultipartFile inputFile) throws IOException {
