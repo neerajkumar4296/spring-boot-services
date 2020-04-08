@@ -11,15 +11,16 @@
 	</parent>
 
 	<groupId>com.springboot</groupId>
-	<artifactId>weather-info-service</artifactId>
-	<version>1.-${build-timestamp}</version>
-	<name>weather-info-service</name>
-	<description>spring-boot-app for providng weather related inforamtion</description>
+	<artifactId>rest-info-service</artifactId>
+	<version>v1.-${build-timestamp}</version>
+	<name>rest-info-service</name>
+	<description>spring-boot-app for providng inforamtion regarding weather etc</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<build-timestamp>${maven.build.timestamp}</build-timestamp>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -32,11 +33,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 		<dependency>
@@ -58,6 +54,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -103,6 +110,19 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 
 	<build>
 		<plugins>
@@ -112,5 +132,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<repositories>
+	    <repository>
+	         <id>spring.milestone</id>
+	         <name>Spring Milestone</name>
+	         <url>https://repo.spring.io/milestone</url>
+	    </repository>
+	</repositories>
 
 </project>

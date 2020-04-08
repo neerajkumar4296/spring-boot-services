@@ -4,11 +4,21 @@ datasource1:
     driverClassName: org.h2.Driver
     username: sa
     password: null
+
+server:
+    port: 8090
     
 spring:
     h2:
      console: 
         enabled: true
+        
+    application:
+     name: rest-util-service    
+
+eureka:
+  client:
+    enabled: true
     
 datasource2:
   h2:
@@ -26,9 +36,9 @@ otpserviceprovider:
      basicuri: 'http://localhost:8089/spring-batch/app/generate/randompass'
      deafultpasslength: 5
   
-server:
-    port: 8090
-    servlet.context-path: /spring-boot-app
+
+    
+    
     
 logging:
   level:

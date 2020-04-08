@@ -2,7 +2,6 @@ package com.example.demo;
 
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,15 +29,17 @@ public class ApplicationController {
 		return "Hello Guest!";
 	}
 	
-		@RequestMapping(value="/getLocale/{attributename}",  method = RequestMethod.GET)
-		public String getLocalisedContent(@PathVariable(required = true, name="attributename")  String attributeName ) {
-			
-			return applicationDelegate.getLocalisedResponse(attributeName, StringUtils.EMPTY);
-	}
-		
-		@RequestMapping(value="/getLocale/{attributename}/{languagecode}",  method = RequestMethod.GET ,produces = MediaType.TEXT_PLAIN_VALUE)
+	/*
+	 * @RequestMapping(value="/getLocale/{attributename}", method =
+	 * RequestMethod.GET) public String getLocalisedContent(@PathVariable(required =
+	 * true, name="attributename") String attributeName ) {
+	 * 
+	 * return applicationDelegate.getLocalisedResponse(attributeName,
+	 * Optional.empty()); }
+	 */
+		@RequestMapping(value="/getLocale/{attributename}",  method = RequestMethod.GET ,produces = MediaType.TEXT_PLAIN_VALUE)
 		public String getLocalisedContentBasedOnLanguage(@PathVariable(required = true, name="attributename")  String attributeName,
-				                                         @PathVariable(required = true, name="languagecode")  String languageCode) {
+				                                         @RequestParam(defaultValue = "en")  Optional<String> languageCode) {
 			System.out.println(" attr:: " +attributeName+ " lang:: " +languageCode);
 			return applicationDelegate.getLocalisedResponse(attributeName, languageCode);
 	}

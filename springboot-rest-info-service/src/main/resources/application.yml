@@ -9,8 +9,8 @@ openweatherapi:
   
 server:
   port: 5000
-  servlet:
-    context-path: /rest-info-service
+#  servlet:
+#    context-path: /${spring.application.name}
     
 
 hometown:
@@ -21,13 +21,17 @@ spring:
   datasource:
     driverClassName: org.h2.Driver
     password: null
-    url: jdbc:h2:file:./data/db
+    url: jdbc:h2:file:./data/info/infodb
     username: user
+   
+   
+  application:
+    name: rest-info-service
           
   seconddatasource:
     driverClassName: org.h2.Driver
     password: null
-    url: jdbc:h2:file:./data/db2
+    url: jdbc:h2:file:./data/info/detailinfo
     username: user 
            
   h2:
@@ -63,6 +67,9 @@ rest-info-service:
   users: appuser,appadmin
   passwords: appuserpass,appadminpass
 
+eureka:
+  client:
+    enabled: true
  
        
 management:
@@ -72,6 +79,8 @@ management:
          port: 9090
          
 logging:
+  level:
+    root: info
   file:
     name: WeatherRestServiceApplicationLogs.txt       
 

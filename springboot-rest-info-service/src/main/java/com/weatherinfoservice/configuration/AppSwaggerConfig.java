@@ -41,8 +41,8 @@ public class AppSwaggerConfig {
     
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
-                .title("Weather Info Restful Web Service")
-                .description("Spring boot Restful web service for providing weather information and some other fun stuff")
+                .title("Rest Info Spring Boot Restful Web Service")
+                .description("Spring boot Restful web service for providing information like weather and some other fun stuff")
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("NA")

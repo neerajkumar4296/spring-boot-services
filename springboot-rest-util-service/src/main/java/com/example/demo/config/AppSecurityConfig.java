@@ -30,9 +30,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		.disable()
 		.authorizeRequests()
 		.antMatchers(HttpMethod.GET)
-		.authenticated()
+		.permitAll()
 		.antMatchers(HttpMethod.POST)
-		.hasRole("ADMIN")
+		.hasAnyRole("ADMIN","USER")
 		.and()
         .httpBasic();
 	}

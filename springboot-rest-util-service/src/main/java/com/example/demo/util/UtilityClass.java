@@ -39,8 +39,8 @@ public class UtilityClass {
 	
 	public static Map<String, String> getLocalisedMapValues(){
 		Map<String, String> localisedMap= new HashMap<>();
-		localisedMap.put("hobby", "loisir");
-		localisedMap.put("name", "Nom");
+		localisedMap.put("HOBBY", "loisir");
+		localisedMap.put("NAME", "Nom");
 		return localisedMap;
 		
 		

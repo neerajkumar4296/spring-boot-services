@@ -1,10 +1,13 @@
 package com.example.demo;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -38,16 +41,19 @@ public class FileController {
 	private DataHandlerDao dataHandlerDao;
 
 	@RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
-	public void readTheNumberOfLinesFromAFile(@RequestParam(required = true, value = "file") MultipartFile inputFile) throws IOException {
+	public String readTheNumberOfLinesFromAFile(@RequestParam(required = true, value = "file") MultipartFile inputFile) throws IOException {
 		logger.info("Input file name:: " + inputFile.getOriginalFilename());
 		logger.info("File Content Type:: " +inputFile.getContentType());
-		try {
-			saveUploadedFiles(inputFile);
-			dataHandlerDao.saveTheFileToDataBase(inputFile);
-			} 
-		catch (CustomAppException e) {
-			logger.error(e.getMessage());
-		}
+		/*
+		 * try { saveUploadedFiles(inputFile);
+		 * dataHandlerDao.saveTheFileToDataBase(inputFile); } catch (CustomAppException
+		 * e) { logger.error(e.getMessage()); }
+		 */
+		BufferedReader reader= new BufferedReader(new InputStreamReader(inputFile.getInputStream()));
+		return reader.lines()
+				.max(Comparator.comparingInt(String::length))
+				.get();
+	
 
 	}
 
