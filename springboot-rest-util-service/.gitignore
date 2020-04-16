@@ -31,6 +31,12 @@ target/
 *.properties
 *.springBeans
 
+#target files
+target/
+/target/
+/target
+/bin/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
