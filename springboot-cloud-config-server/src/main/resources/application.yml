@@ -3,8 +3,9 @@ spring:
     config:
       server:
         git:
-          uri: 
-
+          uri: https://github.com/neerajkumar4296/service-config-repo.git
+          username: kumar.neeraj566@gmail.com
+          password: Githublog@0320
 
 server:
   port: 8888

@@ -19,7 +19,7 @@ public class SpringBootRestInfoApplication {
     // for building the Spring boot application with custom configuration properties file
 	public static void main(String[] args) throws Exception {
         new SpringApplicationBuilder(SpringBootRestInfoApplication.class)
-                .properties("spring.config.name:rest-info-service")
+                .properties("spring.config.name:application")
                 .build()
                 .run(args);
     }

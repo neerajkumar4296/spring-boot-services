@@ -5,4 +5,4 @@ spring:
       name: ${spring.application.name}
       profile: default
   application:
-    name: data-loader-batch
+    name: rest-info-service

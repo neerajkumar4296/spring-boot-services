@@ -30,7 +30,8 @@ spring:
    
   application:
     name: rest-info-service
-          
+  
+         
   seconddatasource:
     driverClassName: org.h2.Driver
     password: null
