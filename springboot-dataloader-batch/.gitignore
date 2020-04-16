@@ -1,8 +1,8 @@
 HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+.mvn/wrapper/maven-wrapper.jar
+**/src/main/**
+**/src/test/**
 
 ### STS ###
 .apt_generated
@@ -18,6 +18,18 @@ target/
 *.iws
 *.iml
 *.ipr
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.cmd
+*.properties
+*.springBeans
 
 ### NetBeans ###
 /nbproject/private/
