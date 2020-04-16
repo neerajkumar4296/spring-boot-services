@@ -36,6 +36,7 @@ target/
 /target/
 /target
 /bin/
+mvnw
 
 ### NetBeans ###
 /nbproject/private/
