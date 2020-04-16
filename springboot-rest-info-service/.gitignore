@@ -18,7 +18,8 @@
 *.factorypath
 *.MF
 *.properties
-
+*.tmp
+*.gz
 
 # Package Files #
 *.jar
