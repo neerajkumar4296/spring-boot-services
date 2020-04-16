@@ -12,7 +12,7 @@
 
 	<groupId>com.springboot</groupId>
 	<artifactId>rest-info-service</artifactId>
-	<version>v1.-${build-timestamp}</version>
+	<version>v1.${build-timestamp}</version>
 	<name>rest-info-service</name>
 	<description>spring-boot-app for providng inforamtion regarding weather etc</description>
 

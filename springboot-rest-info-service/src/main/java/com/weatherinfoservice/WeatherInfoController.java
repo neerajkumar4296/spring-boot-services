@@ -2,10 +2,13 @@ package com.weatherinfoservice;
 
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +37,8 @@ public class WeatherInfoController {
 
 	@Autowired
 	private WeatherService weatherService;
+	
+	
 
 	@ApiOperation(value = "Test the Weather Controller")
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -71,9 +76,18 @@ public class WeatherInfoController {
 		return weatherService.getWeatherReportAsFormattedString(location);
 	}
 	
+	@Scheduled(cron ="${weather-report-schedule.cronexpression}")
+	public void cityWeatherReportToEmail() throws MessagingException {
+		logger.info("cityWeatherReportToEmail in " + this.getClass().getSimpleName());
+		weatherService.getCityWeatherReport("Khagaria");
+	}
+	
+	
 	private String getUserName() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return authentication.getName();
 	  }
+	
+	
 
 }

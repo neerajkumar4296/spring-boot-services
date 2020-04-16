@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+import java.util.Optional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +32,17 @@ public class ApplicationsControllerTest {
 	private ApplicationDelegate applicationDelegate;
 	
 	private static final String  attribute="hobby";
-	private static final String  languageCode="fr";
+	private static final Optional<String> languageCode= Optional.of("fr");
 	private static final String  french_value_hobby="loisir";
 	
 	@Test
+
 	public void test_getLocalisedContentBasedOnLanguage() throws Exception {
 		
 		when(this.applicationDelegate.getLocalisedResponse(attribute, languageCode)).thenReturn(french_value_hobby);
 		
-		this.mockMvc.perform( MockMvcRequestBuilders.get( "/application/getLocale/{attributename}/{languagecode}", attribute, languageCode )
+		this.mockMvc.perform( MockMvcRequestBuilders.get( "/application/getLocale/{attributename}", attribute)
+				.param("languageCode",  languageCode.get())
 				.accept( MediaType.TEXT_PLAIN_VALUE ) )
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(content().string(containsString(french_value_hobby.substring(0, 2))));

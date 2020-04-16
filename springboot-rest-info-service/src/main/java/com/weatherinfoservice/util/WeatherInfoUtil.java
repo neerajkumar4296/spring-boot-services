@@ -28,7 +28,7 @@ public class WeatherInfoUtil {
 				+ "\nsunset Time:: "+ weatherReport.getSystemDetails().getSunsetTime();
 	}
 	
-	private static String getVisibilityFromReport(String visibility) {
+	public static String getVisibilityFromReport(String visibility) {
 		return Optional.ofNullable(visibility)
 				.map(visibilityData-> visibilityData.trim()+ " m")
 				.orElse(NO_VISIBiLITY_DATA_MESSAGE);

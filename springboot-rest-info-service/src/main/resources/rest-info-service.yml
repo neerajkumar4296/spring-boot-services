@@ -16,7 +16,10 @@ server:
 hometown:
      location: Khagaria
      emailaddresses: nice.neeraj09@gmail.com,nitishsingh356@gmail.com
-    
+
+weather-report-schedule:
+         cronexpression: 0 30 0,7,13 ? * *
+   
 spring:
   datasource:
     driverClassName: org.h2.Driver
@@ -66,10 +69,14 @@ spring:
 rest-info-service:
   users: appuser,appadmin
   passwords: appuserpass,appadminpass
+  
+service:
+     localeService:
+            basicUri: http://REST-UTIL-SERVICE/application/getLocale/{attributename}
 
 eureka:
   client:
-    enabled: true
+    enabled: false
  
        
 management:
@@ -78,9 +85,7 @@ management:
              enabled: true
          port: 9090
          
-logging:
-  level:
-    root: info
-  file:
-    name: WeatherRestServiceApplicationLogs.txt       
+logging: 
+   file:
+     name: WeatherRestServiceApplicationLogs.txt       
 

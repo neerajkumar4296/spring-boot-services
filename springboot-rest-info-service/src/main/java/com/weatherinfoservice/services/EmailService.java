@@ -1,5 +1,6 @@
 package com.weatherinfoservice.services;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -12,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.weatherinfoservice.model.WeatherReport;
+import com.weatherinfoservice.util.WeatherInfoUtil;
 
 @Service
 public class EmailService {
@@ -44,19 +46,23 @@ public class EmailService {
 	}
 
 	private String getEmailBodyText(WeatherReport weatherReport) {
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		return "<h4>greetings,</h4><br>" + "<h2 " + "style=" + "color:DodgerBlue;" + ">" + "Weather Report for:: "
 				+ weatherReport.getCityName() + "(" + weatherReport.getSystemDetails().getCountry() + ")" + "</h2>"
 				+ "<h3 " + "style=" + "color:Gray;" + ">" + "<br>weather type:: "
 				+ weatherReport.getWeather().stream().map(weather -> weather.getWeatherDesc()).findFirst().get()
-				+ "<br>temperature:: " + weatherReport.getWeatherInfo().getTemperature() + "\u2103"
+				+ "<br>current temperature:: " + weatherReport.getWeatherInfo().getTemperature() + "\u2103"
 				+ "<br>maximum temperature:: " + weatherReport.getWeatherInfo().getMaxTemperature() + "\u2103"
 				+ "<br>minimum temperature:: " + weatherReport.getWeatherInfo().getMinTemperature() + "\u2103"
 				+ "<br>actual temperature feel:: " + weatherReport.getWeatherInfo().getActualFeel() + "\u2103"
-				+ "<br>humidity:: " + weatherReport.getWeatherInfo().getHumidity() + "<br>wind spped:: "
-				+ weatherReport.getWind().getWindSpeed() + " km/h" + "<br>sunrise:: "
-				+ weatherReport.getSystemDetails().getSunriseTime() + "<br>sunset:: "
-				+ weatherReport.getSystemDetails().getSunsetTime() + "</h3>"
+				+ "<br>humidity:: " + weatherReport.getWeatherInfo().getHumidity()+ " grams/cubic meter" 
+				+ "<br>visibility:: " +WeatherInfoUtil.getVisibilityFromReport(weatherReport.getVisibility())
+				+ "<br>wind spped:: "+ weatherReport.getWind().getWindSpeed() + " km/h" 
+				+ "<br>sunrise:: "+ weatherReport.getSystemDetails().getSunriseTime().format(timeFormatter)
+				+ "<br>sunset:: "+ weatherReport.getSystemDetails().getSunsetTime().format(timeFormatter) + "</h3>"
 				+ "<br><h4>Thanks for using weather service</h4>";
 	}
+	
+	
 
 }

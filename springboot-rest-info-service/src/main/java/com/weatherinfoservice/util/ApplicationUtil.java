@@ -66,10 +66,7 @@ public class ApplicationUtil {
 				otherNumbers.append(i+" ");
 			
 		}
-		//System.out.println(divisibleByThreeAndFive.toString());
-		//System.out.println(divisibleByThree.toString());
-		//System.out.println(divisibleByFive.toString());
-		//System.out.println(otherNumbers.toString());
+		
 		logger.debug("Successfully generated the divisible numbers" );
 		return resultBuilder.append(divisibleByDiv1AndDiv2.toString()).append("\n")
 				.append(divisibleByDiv1.toString()).append("\n")
@@ -110,10 +107,4 @@ public class ApplicationUtil {
 		return String.valueOf(otpArray);
 	}
 	
-	public static Map<String, String> getLocalisedMapValues(){
-		Map<String, String> localisedMap= new HashMap<>();
-		localisedMap.put("HOBBY", "loisir");
-		localisedMap.put("NAME", "Nom");
-		return localisedMap;
-	}
 }

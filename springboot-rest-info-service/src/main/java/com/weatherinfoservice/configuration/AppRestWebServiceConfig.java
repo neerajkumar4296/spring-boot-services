@@ -11,9 +11,16 @@ import com.weatherinfoservice.exceptions.RestTemplateExceptionHandler;
 public class AppRestWebServiceConfig {
 
 	
-	@Bean
+	@Bean("loadBalancedRestTemplate")
 	@LoadBalanced
 	public RestTemplate getRestTemplate() {
+		RestTemplate restTemplate= new RestTemplate();
+		restTemplate.setErrorHandler(new RestTemplateExceptionHandler());
+		return restTemplate;
+	}
+	
+	@Bean("weatherRestTemplate")
+	public RestTemplate getWeatherRestTemplate() {
 		RestTemplate restTemplate= new RestTemplate();
 		restTemplate.setErrorHandler(new RestTemplateExceptionHandler());
 		return restTemplate;
