@@ -28,6 +28,8 @@ target/
 /target/
 /target
 /bin/
+/.mvn/
+mvnw
 
 ### NetBeans ###
 /nbproject/private/
