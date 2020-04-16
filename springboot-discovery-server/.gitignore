@@ -23,6 +23,12 @@ target/
 *.iml
 *.ipr
 
+#target files
+target/
+/target/
+/target
+/bin/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
