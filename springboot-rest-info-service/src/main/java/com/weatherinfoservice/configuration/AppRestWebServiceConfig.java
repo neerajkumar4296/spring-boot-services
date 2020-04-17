@@ -19,7 +19,7 @@ public class AppRestWebServiceConfig {
 		return restTemplate;
 	}
 	
-	@Bean("weatherRestTemplate")
+	@Bean("simpleRestTemplate")
 	public RestTemplate getWeatherRestTemplate() {
 		RestTemplate restTemplate= new RestTemplate();
 		restTemplate.setErrorHandler(new RestTemplateExceptionHandler());

@@ -7,13 +7,12 @@ import javax.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.weatherinfoservice.model.WeatherReport;
 import com.weatherinfoservice.repositories.EmailServiceRepository;
-import com.weatherinfoservice.repositories.OpenWeatherRestRepository;
+import com.weatherinfoservice.repositories.RestServiceRepository;
 import com.weatherinfoservice.util.WeatherInfoUtil;
 
 @Service
@@ -28,7 +27,7 @@ public class WeatherService {
 	EmailServiceRepository emailServiceRepository;
 
 	@Autowired
-	OpenWeatherRestRepository openWeatherRestRepository;
+	RestServiceRepository openWeatherRestRepository;
 
 	public String getWeatherServicApiEndPoint(String location) {
 		return openWeatherRestRepository.getWeatherServicApiUrl(location);

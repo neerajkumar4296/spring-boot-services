@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import javax.mail.MessagingException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.weatherinfoservice.exceptions.BadServiceRequestException;
+import com.weatherinfoservice.model.WeatherReport;
+import com.weatherinfoservice.services.CountryInfoService;
+import com.weatherinfoservice.services.WeatherService;
 
 @Component
 public class ApplicationDelegate {
@@ -30,7 +33,14 @@ public class ApplicationDelegate {
 
 	@Autowired
 	@Qualifier("loadBalancedRestTemplate")
-	private RestTemplate restUtilServiceTemplate;
+	private RestTemplate restServiceTemplate;
+	
+	@Autowired
+	private CountryInfoService countryInfoService;
+	
+	@Autowired
+	WeatherService weatherService;
+	
 
 	public String getLocalisedResponse(String attributeName, Optional<String> languageCode) {
 
@@ -47,10 +57,17 @@ public class ApplicationDelegate {
 		
 		URI uri= uriBuilder.buildAndExpand(pathParams).toUri();
 		System.out.println("calling util service uri:: " +uri.toString());
-		result = restUtilServiceTemplate.getForObject(uri, String.class);
+		result = restServiceTemplate.getForObject(uri, String.class);
 		System.out.println("result returned:: " + result);
 		return result;
 
+	}
+	
+	
+	public String getCountryInfo(String countryName) {
+		
+		return countryInfoService.getCounrtyInfoFromService(countryName);
+		
 	}
 
 	public String analyzeContentInTheFile(MultipartFile inputFile) throws IOException {
@@ -65,4 +82,18 @@ public class ApplicationDelegate {
 		return reader.lines().max(Comparator.comparingInt(String::length)).get();
 
 	}
+
+
+	public WeatherReport getCityWeatherInfo(String location) throws MessagingException {
+		return weatherService.getCityWeatherReport(location);
+	}
+	
+	public String getCityWeatherInfoConcised(String location) {
+		return weatherService.getWeatherReportAsFormattedString(location);
+	}
+	
+	public String getServicApiEndPoint(String location) {
+		return weatherService.getWeatherServicApiEndPoint(location);
+	}
+	
 }

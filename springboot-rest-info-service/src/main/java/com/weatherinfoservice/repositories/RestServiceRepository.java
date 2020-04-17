@@ -18,9 +18,9 @@ import org.springframework.web.client.RestTemplate;
 import com.weatherinfoservice.model.WeatherReport;
 
 @Repository
-public class OpenWeatherRestRepository {
+public class RestServiceRepository {
 	
-	private static final Logger logger = LoggerFactory.getLogger(OpenWeatherRestRepository.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestServiceRepository.class);
 
 		
 	@Value("${openweatherapi.basicuri: }")
@@ -35,10 +35,14 @@ public class OpenWeatherRestRepository {
 	@Value("${openweatherapi.apiparam}")
 	private String apiParam;
 	
+	@Value("${restcountriesapi.basicuri}")
+	private String countryServiceBasicUri;
+	
 	@Autowired
-	@Qualifier("weatherRestTemplate")
+	@Qualifier("simpleRestTemplate")
 	RestTemplate restTemplate;
 	
+
 	
 	public String getWeatherServicApiUrl(String location) {
 		StringBuilder apiUrlBuilder = new StringBuilder();
@@ -57,5 +61,14 @@ public class OpenWeatherRestRepository {
 				HttpMethod.GET, httpEntity, WeatherReport.class);
 		return responseEntity.getBody();
 	}
+	
+	public String getCountryInfo(String countryName) {
+		logger.info("making api request to service endpoint url for country info report::");
+		String countryInfo=restTemplate.getForObject(countryServiceBasicUri, String.class, countryName);
+		logger.info("country info fetched successfully:: " +countryInfo);
+		return countryInfo;
+	}
+	
+	
 
 }

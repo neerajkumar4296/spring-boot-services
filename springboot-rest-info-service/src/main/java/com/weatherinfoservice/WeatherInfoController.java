@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.weatherinfoservice.delegate.ApplicationDelegate;
 import com.weatherinfoservice.model.WeatherReport;
 import com.weatherinfoservice.services.WeatherService;
 
@@ -36,7 +37,7 @@ public class WeatherInfoController {
 	private static final String WEATHER_REPORT_XML_VALUE= "application/vnd.WeatherReport.v1+xml";
 
 	@Autowired
-	private WeatherService weatherService;
+	private ApplicationDelegate applicationDelegate;
 	
 	
 
@@ -52,7 +53,7 @@ public class WeatherInfoController {
 	@RequestMapping(value = "/weatherserviceurl", method = RequestMethod.GET)
 	public String weatherServiceurl(@RequestParam(defaultValue = "kolkata") Optional<String> location) {
 		logger.info("getWeatherServiceurl called");
-		return weatherService.getWeatherServicApiEndPoint(location.get());
+		return applicationDelegate.getServicApiEndPoint(location.get());
 	}
 
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Invalid City Name:: Please Make Sure You Spell the City Name Correctly"),
@@ -62,7 +63,7 @@ public class WeatherInfoController {
 	@RequestMapping(value = "/cityweatherreport/{location}", method = RequestMethod.GET, produces = WEATHER_REPORT_JSON_VALUE)
 	public WeatherReport cityWeatherReport(@PathVariable String location) throws Exception {
 		logger.info("getWeatherReport called");
-		return weatherService.getCityWeatherReport(location);
+		return applicationDelegate.getCityWeatherInfo(location);
 	}
 
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Invalid City Name:: Please Make Sure You Spell the City Name Correctly"),
@@ -73,13 +74,13 @@ public class WeatherInfoController {
 	public String cityWeatherReportString(@PathVariable String location) {
 		logger.info("getCityWeatherReportString in " + this.getClass().getSimpleName() + " called for location:: "
 				+ location);
-		return weatherService.getWeatherReportAsFormattedString(location);
+		return applicationDelegate.getCityWeatherInfoConcised(location);
 	}
 	
 	@Scheduled(cron ="${weather-report-schedule.cronexpression}")
 	public void cityWeatherReportToEmail() throws MessagingException {
 		logger.info("cityWeatherReportToEmail in " + this.getClass().getSimpleName());
-		weatherService.getCityWeatherReport("Khagaria");
+		applicationDelegate.getCityWeatherInfo("Khagaria");
 	}
 	
 	

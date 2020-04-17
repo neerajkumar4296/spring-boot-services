@@ -6,6 +6,9 @@ openweatherapi:
   responsemodehtml: '&mode=html'
   responseunitmetric: '&units=metric'
   responseunitFahrenheit: 'units=imperial'
+
+restcountriesapi:
+    basicuri: https://restcountries.eu/rest/v2/name/{countryname}
   
 server:
   port: 5000
