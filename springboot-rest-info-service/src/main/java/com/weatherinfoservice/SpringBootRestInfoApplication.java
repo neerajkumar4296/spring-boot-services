@@ -5,8 +5,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
 
 @SpringBootApplication
+@EnableEncryptableProperties
 @EnableEurekaClient
 @EnableScheduling
 public class SpringBootRestInfoApplication {
@@ -19,7 +22,10 @@ public class SpringBootRestInfoApplication {
     // for building the Spring boot application with custom configuration properties file
 	public static void main(String[] args) throws Exception {
         new SpringApplicationBuilder(SpringBootRestInfoApplication.class)
+                 // for custom properties file name
                 .properties("spring.config.name:application")
+                // for providing the secret pass to jasypt at application start up for decryption of properties
+                .properties("jasypt.encryptor.password:topsecret")
                 .build()
                 .run(args);
     }

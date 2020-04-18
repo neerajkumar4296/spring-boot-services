@@ -23,19 +23,19 @@ public class RestServiceRepository {
 	private static final Logger logger = LoggerFactory.getLogger(RestServiceRepository.class);
 
 		
-	@Value("${openweatherapi.basicuri: }")
+	@Value("${services.openweather.basicuri: }")
 	private String weatherServiceBasicUri;
 
-	@Value("${openweatherapi.responseunitmetric}")
+	@Value("${services.openweather.responseunitmetric}")
 	private String responseUnit;
 
-	@Value("${openweatherapi.responsemodehtml}")
+	@Value("${services.openweather.responsemodehtml}")
 	private String responseMode;
 
-	@Value("${openweatherapi.apiparam}")
+	@Value("${services.openweather.apiparam}")
 	private String apiParam;
 	
-	@Value("${restcountriesapi.basicuri}")
+	@Value("${services.restcountries.basicuri}")
 	private String countryServiceBasicUri;
 	
 	@Autowired

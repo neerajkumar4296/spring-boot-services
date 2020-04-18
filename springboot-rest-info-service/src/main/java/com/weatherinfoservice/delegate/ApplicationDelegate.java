@@ -28,7 +28,7 @@ import com.weatherinfoservice.services.WeatherService;
 @Component
 public class ApplicationDelegate {
 	
-	@Value(value = "${service.localeService.basicUri}")
+	@Value(value = "${services.localeService.basicUri}")
 	private String localeServiceBasicUri;
 
 	@Autowired

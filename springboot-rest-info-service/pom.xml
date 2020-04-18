@@ -12,7 +12,7 @@
 
 	<groupId>com.springboot</groupId>
 	<artifactId>rest-info-service</artifactId>
-	<version>v1.${build-timestamp}</version>
+	<version>v1.1.${build-timestamp}</version>
 	<name>rest-info-service</name>
 	<description>spring-boot-app for providng inforamtion regarding weather etc</description>
 
@@ -77,6 +77,11 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>2.0.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>io.springfox</groupId>
