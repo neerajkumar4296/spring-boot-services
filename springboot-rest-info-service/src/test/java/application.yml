@@ -4,6 +4,8 @@ spring:
       uri: http://localhost:8888
       name: ${spring.application.name}
       profile: default
-      enabled: false
+      ##enabled: false-- not working anyway
   application:
     name: rest-info-service
+  ##profiles:
+    ##active: dev1
