@@ -1,9 +1,0 @@
-spring:
-  cloud:
-    config: 
-      uri: http://localhost:8888
-      name: ${spring.application.name}
-      profile: dev1
-      ##enabled: false-- not working anyway
-  application:
-    name: rest-info-service

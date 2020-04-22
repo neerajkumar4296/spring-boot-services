@@ -23,7 +23,8 @@ public class SpringBootRestInfoApplication {
 	public static void main(String[] args) throws Exception {
         new SpringApplicationBuilder(SpringBootRestInfoApplication.class)
                  // for custom properties file name
-                .properties("spring.config.name:application")
+                  .properties("spring.config.name:application")
+                //.properties("spring.cloud.config.uri", "http://cloud-config-server-dev1.ap-south-1.elasticbeanstalk.com")
                 // for providing the secret pass to jasypt at application start up for decryption of properties
                 .properties("jasypt.encryptor.password:topsecret")
                 .build()

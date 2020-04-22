@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.weatherinfoservice.delegate.ApplicationDelegate;
 import com.weatherinfoservice.model.WeatherReport;
 import com.weatherinfoservice.model.test.MockTestData;
 import com.weatherinfoservice.services.WeatherService;
@@ -40,7 +40,8 @@ public class WeatherInfoControllerTest {
 	   
 	   
 	   @MockBean
-	   private WeatherService weatherService;
+	   private ApplicationDelegate applicationDelegate;
+	   //private WeatherService weatherService;
 	   
 	   
 	   private static WeatherReport weatherReport;
@@ -67,7 +68,7 @@ public class WeatherInfoControllerTest {
 	   @DisplayName("Test for CityWeatherReport call(Json Response)")
 	   public void testCityWeatherReport() throws Exception
 	   {
-		   when(this.weatherService.getCityWeatherReport(LOCATION)).thenReturn(weatherReport);
+		   when(this.applicationDelegate.getCityWeatherInfo(LOCATION)).thenReturn(weatherReport);
 		   
 		            this.mockMvc.perform(get("/weather/cityweatherreport/{location}", LOCATION)
 				   .accept(WeatherInfoController.WEATHER_REPORT_JSON_VALUE))
@@ -80,7 +81,7 @@ public class WeatherInfoControllerTest {
 	   @DisplayName("Test for CityWeatherReport call(Formatted String Response)")
 	   public void testCityWeatherReportString() throws Exception
 	   {
-		   when(this.weatherService.getWeatherReportAsFormattedString(LOCATION)).thenReturn(weatherReportAsFormmattedString);
+		   when(this.applicationDelegate.getCityWeatherInfoConcised(LOCATION)).thenReturn(weatherReportAsFormmattedString);
 		   
 		            this.mockMvc.perform(get("/weather/cityweatherreport/{location}/concised", LOCATION))
 		           .andExpect(MockMvcResultMatchers.status().isOk())

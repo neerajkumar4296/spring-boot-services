@@ -4,8 +4,8 @@ spring:
       server:
         git:
           uri: https://github.com/neerajkumar4296/service-config-repo.git
-          username: kumar.neeraj566@gmail.com
-          password: Githublog@0320
+          username: ENC(K6aMRIvS5AiqsHXrS3ZVsPsS6r/MNR7V6t1OmoHlxOV3vJfupXnPPA==)
+          password: ENC(90xe0ZvEGx22hgs5a1LeAqa8TXmHX030)
 
 server:
-  port: 8888
+  port: 5000
