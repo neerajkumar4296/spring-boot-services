@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.weatherinfoservice.dao.ServicesDao;
+import com.weatherinfoservice.db.repositories.BookingRepository;
+import com.weatherinfoservice.exceptions.BadServiceRequestException;
 import com.weatherinfoservice.exceptions.MyAppException;
 import com.weatherinfoservice.model.Booking;
 import com.weatherinfoservice.model.Passenger;
@@ -21,21 +22,23 @@ public class BookingService {
 	private static final String SAVING_BOOKING_ERROR = "Some Error occured in Saving the Booking...Please check the input Request";
 	private static final String BOOKING_SUCCESS_MESSAGE = "Booking Successful....Please keep the Booking Id for future reference";
 
+//	@Autowired
+//	ServicesDao servicedao;
+	
 	@Autowired
-	ServicesDao servicedao;
+	BookingRepository bookingRepository;
 
 	public Booking generateAndSaveBooking(Passenger passenger) throws Exception {
 		Booking booking = new Booking();
 		String bookingNumber = generateBookingNumber(passenger);
 		try {
 			if (!StringUtils.isEmpty(bookingNumber)) {
+				booking.setBookingId(bookingNumber);
 				booking.setBookingTime(LocalDateTime.now());
-				;
 				booking.setMessage(BOOKING_SUCCESS_MESSAGE);
 				booking.setPassenger(passenger);
-				booking.setBookingId(bookingNumber);
-				servicedao.saveBooking(booking);
-				logger.info("Booking saved Successfully....for Passenger:: " + passenger);
+				bookingRepository.save(booking);
+				logger.info("Booking Saved Successfully for Passenger:: " +passenger);
 			}
 		} catch (Exception e) {
 			throw new MyAppException(SAVING_BOOKING_ERROR);
@@ -55,6 +58,10 @@ public class BookingService {
 				.append(passenger.getDestination().substring(0, 2).toUpperCase());
 		logger.info("Booking number generated :: " + bookingNumberBuilder.toString());
 		return bookingNumberBuilder.toString();
+	}
+	
+	public Booking retrieveBooking(String bookingId) {
+		return bookingRepository.findById(bookingId).orElseThrow(()-> new BadServiceRequestException("Invalid Booking ID Provided!"));
 	}
 
 }

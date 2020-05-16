@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,6 +65,13 @@ public class BookingController {
 		
 	}
 	
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Booking ID Provided!")})
+	@ApiOperation(value = "Retrieve the booking by providing the the booking id")
+	@GetMapping(value = "retrieve/{bookingId}", produces = BOOKING_JSON_VALUE)
+	@JsonView(JsonResponseView.Private.class)
+	public Booking retrieveBookingDetails(@PathVariable String bookingId) throws Exception {
+		return bookingService.retrieveBooking(bookingId);
+	}
 	
 	private String getUserName() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

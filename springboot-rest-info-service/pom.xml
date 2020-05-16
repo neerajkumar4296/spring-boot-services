@@ -14,7 +14,7 @@
 	<artifactId>rest-info-service</artifactId>
 	<version>v1.1.${build-timestamp}</version>
 	<name>rest-info-service</name>
-	<description>spring-boot-app for providng inforamtion regarding weather etc</description>
+	<description>spring-boot-app for providng information regarding weather and some fun utilities</description>
 
 	<properties>
 		<java.version>1.8</java.version>
