@@ -1,16 +1,20 @@
 package com.weatherinfoservice.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-
-
+//@Entity
+//@Table(name = "ADDRESS")
 public class Address {
 
-	private int houseno;
+	
+	private String houseno;
 	private String road;
 	private String city;
 	private String zip;
 	private String state;
 	private String country;
+	
 	
 	private AddressType addressType;
 
@@ -18,7 +22,7 @@ public class Address {
 		super();
 	}
 
-	public Address(int houseno,  String road, String city, String zip, String state,
+	public Address(String houseno,  String road, String city, String zip, String state,
 			String country, AddressType addressType) {
 		super();
 		this.houseno = houseno;
@@ -30,11 +34,11 @@ public class Address {
 		this.addressType = addressType;
 	}
 
-	public int getHouseno() {
+	public String getHouseno() {
 		return houseno;
 	}
 
-	public void setHouseno(int houseno) {
+	public void setHouseno(String houseno) {
 		this.houseno = houseno;
 	}
 

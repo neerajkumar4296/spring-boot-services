@@ -18,7 +18,7 @@ public class WeatherReport {
 
 	private List<Weather> weather;
 
-	private String weatherBase;
+	//private String weatherBase;
 
 	private WeatherInfo weatherInfo;
 
@@ -26,7 +26,7 @@ public class WeatherReport {
 
 	private Wind wind;
 
-	private Clouds clouds;
+	//private Clouds clouds;
 
 	private long reportDate;
 
@@ -39,6 +39,7 @@ public class WeatherReport {
 	private String cityName;
 
 	private Integer responseCode;
+	
 
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -67,15 +68,15 @@ public class WeatherReport {
 		this.weather = weather;
 	}
 
-	@JsonProperty("weatherBase")
-	public String getWeatherBase() {
-		return weatherBase;
-	}
-
-	@JsonProperty("base")
-	public void setWeatherBase(String base) {
-		this.weatherBase = base;
-	}
+//	@JsonProperty("weatherBase")
+//	public String getWeatherBase() {
+//		return weatherBase;
+//	}
+//
+//	@JsonProperty("base")
+//	public void setWeatherBase(String base) {
+//		this.weatherBase = base;
+//	}
 
 	@JsonProperty("weatherInfo")
 	public WeatherInfo getWeatherInfo() {
@@ -107,15 +108,12 @@ public class WeatherReport {
 		this.wind = wind;
 	}
 
-	@JsonProperty("clouds")
-	public Clouds getClouds() {
-		return clouds;
-	}
-
-	@JsonProperty("clouds")
-	public void setClouds(Clouds clouds) {
-		this.clouds = clouds;
-	}
+	/*
+	 * @JsonProperty("clouds") public Clouds getClouds() { return clouds; }
+	 * 
+	 * @JsonProperty("clouds") public void setClouds(Clouds clouds) { this.clouds =
+	 * clouds; }
+	 */
 
 	@JsonProperty("reportDate")
 	public LocalDateTime getReportDate() {
@@ -187,9 +185,9 @@ public class WeatherReport {
 
 	@Override
 	public String toString() {
-		return "WeatherReport [coordinates=" + coordinates + ", weather=" + weather + ", weatherBase=" + weatherBase
-				+ ", weatherInfo=" + weatherInfo + ", visibility=" + visibility + ", wind=" + wind + ", clouds="
-				+ clouds + ", reportDate=" + reportDate + ", systemDetails=" + systemDetails + ", timezone=" + timezone
+		return "WeatherReport [coordinates=" + coordinates + ", weather=" + weather
+				+ ", weatherInfo=" + weatherInfo + ", visibility=" + visibility + ", wind=" + wind
+				+ ", reportDate=" + reportDate + ", systemDetails=" + systemDetails + ", timezone=" + timezone
 				+ ", cityId=" + cityId + ", cityName=" + cityName + ", responseCode=" + responseCode
 				+ ", additionalProperties=" + additionalProperties + "]";
 	}

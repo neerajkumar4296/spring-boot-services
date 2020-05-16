@@ -29,5 +29,7 @@ public class SpringBootRestInfoApplication {
                 .properties("jasypt.encryptor.password:topsecret")
                 .build()
                 .run(args);
+        
+       
     }
 }

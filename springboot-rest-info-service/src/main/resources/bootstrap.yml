@@ -4,9 +4,9 @@ spring:
   cloud:
     config:
       ##uri: http://localhost:5000
-      uri: http://cloud-config-server-dev1.ap-south-1.elasticbeanstalk.com
+      uri: http://cloud-config-service-dev1.ap-south-1.elasticbeanstalk.com
       name: ${spring.application.name}
-      profile: default
+      profile: dev1
 #      failFast: true
       retry:
         maxAttempts: 20

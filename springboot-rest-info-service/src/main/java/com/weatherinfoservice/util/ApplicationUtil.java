@@ -13,12 +13,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import com.weatherinfoservice.exceptions.BadServiceRequestException;
+
 
 
 
 public class ApplicationUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationUtil.class);
+	private static final Integer ROMAN_NUMERAL_UPPER_LIMIT = 4999;
+	private static final Integer ROMAN_NUMERAL_LOWER_LIMIT = 1;
 
 	public static void main(String args[]) throws Exception {
 		//Passenger passenger= new Passenger("Neeraj", "Kumar", "Patna", "Patn", "9955716929", 2);
@@ -105,6 +109,26 @@ public class ApplicationUtil {
 		}
 		logger.debug("otp generated successfully");
 		return String.valueOf(otpArray);
+	}
+	
+	public static String intToRoman(int number) {
+		if(number>ROMAN_NUMERAL_UPPER_LIMIT | number<ROMAN_NUMERAL_LOWER_LIMIT) {
+			logger.error("input number=> " +number+ " exceeds the supported range:: ("+ROMAN_NUMERAL_LOWER_LIMIT+"-"+ROMAN_NUMERAL_UPPER_LIMIT+ ")");
+			throw new BadServiceRequestException("input number should be in the range:: (" +ROMAN_NUMERAL_LOWER_LIMIT+"-"+ROMAN_NUMERAL_UPPER_LIMIT+ ")");
+		}
+		String romanNumeral = null;
+		String[] units= {"", "I", "II", "III", "IV", "V", "VI", "VII","VIII", "IX"};
+		String[] tens= {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX","XC"};
+		String[] hundreds= {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC","DCCC", "CM"};
+		String[] thousands= {"", "M", "MM", "MMM", "MMMM"};
+		//String[] fiveThousands= {"", "v", "MM", "MMM", "MMMM"};
+		
+		romanNumeral= thousands[number/1000]
+				+ hundreds[(number%1000)/100]
+				+tens[(number%100)/10]
+				+units[number%10];
+		System.out.println("Roman numeral for "+number+ " is:: " +romanNumeral);
+		return romanNumeral;
 	}
 	
 }

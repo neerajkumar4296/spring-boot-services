@@ -2,5 +2,5 @@ package com.weatherinfoservice.model;
 
 public enum AddressType {
 
-	PRIMARY, SECONDARY
+	HOME, OFFICE, TEMPORARY
 }

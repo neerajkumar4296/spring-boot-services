@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ import com.weatherinfoservice.model.DivisibilityInputRequest;
 import com.weatherinfoservice.model.MathsInputRequest;
 import com.weatherinfoservice.services.MathsOperationService;
 import com.weatherinfoservice.util.ApplicationUtil;
+import com.weatherinfoservice.util.DbUtil;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -49,6 +51,9 @@ public class ApplicationsUtiltyController {
 	
 	@Autowired
 	ApplicationDelegate applicationDelegate;
+	
+	@Autowired
+	DbUtil dbUtil;
 
 	@GetMapping(value = "/test")
 	public String testController() {
@@ -121,11 +126,25 @@ public class ApplicationsUtiltyController {
 	     return applicationDelegate.analyzeContentInTheFile(inputFile);
 
 	}
+	
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "number exceeds the supported range") })
+	@ApiOperation(value = "Converts an Integer value to its equivalent Roman Numeral")
+	@ResponseStatus(code = HttpStatus.OK)
+	@RequestMapping(value = "toRomanNumeral/{number}", method = RequestMethod.GET)
+	public String integerToRomanLiteral(@PathVariable(name = "number") Integer inputNumber ) {
+		logger.info("integerToRomanLiteral method called in " +this.getClass().getSimpleName()+ " for input number:: " +inputNumber);
+	    return ApplicationUtil.intToRoman(inputNumber);
+	}
+	
+	@GetMapping(value = "employee/save")
+	public void saveEmployeeDetails()  {
+		//DbUtil dbUtil= new DbUtil();
+	    dbUtil.saveEmployeeDetails();
+	}
 
 	private String getUserName() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return authentication.getName();
-
 	}
 
 }

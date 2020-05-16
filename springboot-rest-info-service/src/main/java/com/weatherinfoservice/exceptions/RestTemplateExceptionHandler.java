@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RestTemplateExceptionHandler implements ResponseErrorHandler  {
 
 	public static final Logger logger= LoggerFactory.getLogger(RestTemplateExceptionHandler.class);
-	private static final String badRequestResponseMessage= "Please Make Sure You Spell the Country/City Name Correctly";
+	private static final String BAD_REQUEST_RESPONSE_MESSAGE= "Please Make Sure You Spell the Country/City Name Correctly";
 
 	
 	@Override
@@ -36,8 +36,8 @@ public class RestTemplateExceptionHandler implements ResponseErrorHandler  {
 		//System.out.println("responseErrorMap:: " +responseErrorMap);
 		
 		if(response.getStatusCode()==HttpStatus.BAD_REQUEST || response.getStatusCode()==HttpStatus.NOT_FOUND ) {
-			logger.error("ResponseBody: {}", badRequestResponseMessage);
-	        throw new BadServiceRequestException(badRequestResponseMessage);
+			logger.error("ResponseBody: {}", BAD_REQUEST_RESPONSE_MESSAGE);
+	        throw new BadServiceRequestException(BAD_REQUEST_RESPONSE_MESSAGE);
 		}
 		else
 		{
