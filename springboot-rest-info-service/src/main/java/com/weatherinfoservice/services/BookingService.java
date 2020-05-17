@@ -63,5 +63,11 @@ public class BookingService {
 	public Booking retrieveBooking(String bookingId) {
 		return bookingRepository.findById(bookingId).orElseThrow(()-> new BadServiceRequestException("Invalid Booking ID Provided!"));
 	}
+	
+	public Booking retrieveLostBooking(String mobileNumber, String firstName) {
+	String passengerFirstName= firstName.substring(0, 1).toUpperCase()+ firstName.substring(1);
+		return bookingRepository.findBookingByMobileAndPassengerName(mobileNumber, passengerFirstName)
+				                .orElseThrow(()-> new BadServiceRequestException("No Booking Found Matching the Provided details"));
+	}
 
 }

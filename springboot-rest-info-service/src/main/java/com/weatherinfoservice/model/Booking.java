@@ -67,6 +67,8 @@ public class Booking implements  Serializable {
 	public void setBookingTime(LocalDateTime localDateTime) {
 		this.bookingTime = localDateTime;
 	}
+	
+	
 	public Passenger getPassenger() {
 		return passenger;
 	}

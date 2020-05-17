@@ -1,6 +1,7 @@
 package com.weatherinfoservice.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.persistence.Column;
@@ -10,6 +11,10 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.data.convert.JodaTimeConverters.DateToLocalDateConverter;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.weatherinfoservice.jsonviews.JsonResponseView;
@@ -48,6 +53,11 @@ public class Passenger implements Serializable {
 	@JsonView(JsonResponseView.Private.class)
     @Pattern(regexp = "[789]{1}\\d{9}",message = "mobile number must be 0f 10 digits starting with 7 or 8 or 9")
 	private String mobileNo;
+	
+	@Column(name = "dateofjourney", nullable = false, updatable = false)
+	@JsonView(JsonResponseView.Private.class)
+	@DateTimeFormat(iso = ISO.DATE, pattern = "^(1[0-2]|0[1-9])/(3[01]"+ "|[12][0-9]|0[1-9])/[0-9]{4}$")
+	private LocalDate dateOfJourney;
 	
 	@Column(name = "noofticket", length = 1, updatable = false)
 	@JsonView(JsonResponseView.Private.class)
@@ -104,6 +114,14 @@ public class Passenger implements Serializable {
 
 	public String getMobileNo() {
 		return mobileNo;
+	}
+	
+	public LocalDate getDateOfJourney() {
+		return dateOfJourney;
+	}
+
+	public void setDateOfJourney(LocalDate dateOfJourney) {
+		this.dateOfJourney = dateOfJourney;
 	}
 
 	public void setMobileNo(String mobileNo) {

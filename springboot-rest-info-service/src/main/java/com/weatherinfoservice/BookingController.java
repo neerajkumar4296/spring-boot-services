@@ -69,8 +69,15 @@ public class BookingController {
 	@ApiOperation(value = "Retrieve the booking by providing the the booking id")
 	@GetMapping(value = "retrieve/{bookingId}", produces = BOOKING_JSON_VALUE)
 	@JsonView(JsonResponseView.Private.class)
-	public Booking retrieveBookingDetails(@PathVariable String bookingId) throws Exception {
+	public Booking retrieveBookingDetails(@PathVariable String bookingId) {
 		return bookingService.retrieveBooking(bookingId);
+	}
+	
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "No Booking Found Matching the Provided details")})
+	@ApiOperation(value = "Retrieve the Lost Booking details by providing the Mobile Number and Passenger First Name")
+	@GetMapping(value = "retrieveLostBookingDetails/{mobileNumber}/{passengerFirstName}", produces = BOOKING_JSON_VALUE)
+	public Booking retrieveLostBookingDetails(@PathVariable String mobileNumber, @PathVariable String passengerFirstName) {
+		return bookingService.retrieveLostBooking(mobileNumber, passengerFirstName);
 	}
 	
 	private String getUserName() {

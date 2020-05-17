@@ -33,6 +33,9 @@ public class ApplicationUtil {
 		String emailAddresses = "nice.neeraj09@gmail.com,nitishsingh356@gmail.com";
 		Arrays.asList(emailAddresses.split(",")).stream().
 		forEach(emailAddress-> System.out.println(emailAddress.replaceAll("(?<=.{4}).(?=[^@]*?@)", "*")));
+		String firstName="rahul";
+		String passengerFirstName= firstName.substring(0, 1).toUpperCase()+ firstName.substring(1);
+		System.out.println("first letter uppercase:: " +passengerFirstName);
 		
 		List<String> emailAddressesMasked=Arrays.asList(emailAddresses.split(",")).stream().
 				map(emailAddress-> emailAddress.replaceAll("(?<=.{4}).(?=[^@]*?@)", "*")).collect(Collectors.toList());
