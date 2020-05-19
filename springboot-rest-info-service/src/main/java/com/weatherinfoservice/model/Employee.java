@@ -1,23 +1,30 @@
 package com.weatherinfoservice.model;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
-@Table(name = "EMPLOYEE_DETAILS")
+@Table(name = "EMPLOYEES")
 public class Employee {
 
 	@Id
@@ -32,6 +39,7 @@ public class Employee {
 	
 	@Column(name = "DOB", nullable = false)
 	//@Temporal(TemporalType.DATE)-- not usefull when using with java 8 time api
+	@DateTimeFormat(iso = ISO.DATE, pattern = "^(1[0-2]|0[1-9])/(3[01]"+ "|[12][0-9]|0[1-9])/[0-9]{4}$")
 	private LocalDate dob;
 	
 	@Column(name = "MAXM_QUALIFICATION", nullable = false)
@@ -42,18 +50,16 @@ public class Employee {
 	@Column(name = "SALARY", nullable = false)
 	private Long salary;
 	
-	@Transient
-	//@Embedded
-	@Column(name = "ADDRESS", nullable = false)
-	@Formula(value = "concat(houseno, road, city, state, zip, country)")
-	private Address address;
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+	@JoinColumn(name = "EMPLOYEE_ID")
+	private Collection<Address> address = new ArrayList<>();
 
 	public Employee() {
 		super();
 	}
 
 	public Employee(Long employeeId, String firstName, String lastName, LocalDate dob, Long salary,
-			Qualification edQualification, Address address) {
+			Qualification edQualification, Collection<Address> address) {
 		super();
 		this.employeeId = employeeId;
 		this.firstName = firstName;
@@ -112,22 +118,20 @@ public class Employee {
 		this.maxEdQualification = edQualification;
 	}
 
-	public Address getAddress() {
+	public Collection<Address> getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(Collection<Address> address) {
 		this.address = address;
 	}
 
 	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName + ", dob="
-				+ dob + ", salary=" + salary + ", edQualification=" + maxEdQualification + ", address=" + address + "]";
+				+ dob + ", maxEdQualification=" + maxEdQualification + ", salary=" + salary + ", address=" + address
+				+ "]";
 	}
-	
 
 	
-	
-
 }

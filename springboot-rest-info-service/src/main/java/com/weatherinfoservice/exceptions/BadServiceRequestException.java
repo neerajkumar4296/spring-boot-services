@@ -18,6 +18,4 @@ public class BadServiceRequestException extends RuntimeException {
 	public BadServiceRequestException(String message) {
 		super(message);
 	}
-	
-
 }
