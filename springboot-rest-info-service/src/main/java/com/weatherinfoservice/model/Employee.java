@@ -3,6 +3,7 @@ package com.weatherinfoservice.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,14 +53,14 @@ public class Employee {
 	
 	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
 	@JoinColumn(name = "EMPLOYEE_ID")
-	private Collection<Address> address = new ArrayList<>();
+	private List<Address> addresses = new ArrayList<>();
 
 	public Employee() {
 		super();
 	}
 
 	public Employee(Long employeeId, String firstName, String lastName, LocalDate dob, Long salary,
-			Qualification edQualification, Collection<Address> address) {
+			Qualification edQualification, List<Address> address) {
 		super();
 		this.employeeId = employeeId;
 		this.firstName = firstName;
@@ -67,7 +68,7 @@ public class Employee {
 		this.dob = dob;
 		this.salary = salary;
 		this.maxEdQualification = edQualification;
-		this.address = address;
+		this.addresses = address;
 	}
 
 	public Long getEmployeeId() {
@@ -118,18 +119,18 @@ public class Employee {
 		this.maxEdQualification = edQualification;
 	}
 
-	public Collection<Address> getAddress() {
-		return address;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddress(Collection<Address> address) {
-		this.address = address;
+	public void setAddresses(List<Address> address) {
+		this.addresses = address;
 	}
 
 	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName + ", dob="
-				+ dob + ", maxEdQualification=" + maxEdQualification + ", salary=" + salary + ", address=" + address
+				+ dob + ", maxEdQualification=" + maxEdQualification + ", salary=" + salary + ", address=" + addresses
 				+ "]";
 	}
 

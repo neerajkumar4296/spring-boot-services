@@ -29,7 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.weatherinfoservice.delegate.ApplicationDelegate;
 import com.weatherinfoservice.exceptions.BadServiceRequestException;
+import com.weatherinfoservice.model.Address;
 import com.weatherinfoservice.model.DivisibilityInputRequest;
+import com.weatherinfoservice.model.Employee;
 import com.weatherinfoservice.model.MathsInputRequest;
 import com.weatherinfoservice.services.MathsOperationService;
 import com.weatherinfoservice.util.ApplicationUtil;
@@ -136,10 +138,38 @@ public class ApplicationsUtiltyController {
 	    return ApplicationUtil.intToRoman(inputNumber);
 	}
 	
-	@GetMapping(value = "employee/save")
+	@GetMapping(value = "employees/save")
 	public void saveEmployeeDetails()  {
 		//DbUtil dbUtil= new DbUtil();
 	    dbUtil.saveEmployeeDetails();
+	}
+	
+	@GetMapping(value = "employees/findAll")
+	public List<Employee> allEmployeeDetails()  {
+		//DbUtil dbUtil= new DbUtil();
+	    return dbUtil.fetchAllEmployees();
+	}
+	
+	@GetMapping(value = "employees/withHomeAddress")
+	public List<Employee> allEmployeeHomeAddresssOnly()  {
+		//DbUtil dbUtil= new DbUtil();
+	    return dbUtil.fetchEmployeeWithOfficeAddress();
+	}
+	
+	@GetMapping(value = "employees/allAddresses")
+	public List<Address> allEmployeesAddress()  {
+		//DbUtil dbUtil= new DbUtil();
+	return dbUtil.fetchAllAddresses();
+	}
+	
+	@GetMapping(value = "employees/employee/{employeeId}/addresses")
+	public List<Address> employeeAddresses(@PathVariable Long employeeId)  {
+	return dbUtil.fetchEmployeeAddresses(employeeId);
+	}
+	
+	@GetMapping(value = "employees/employee/{employeeId}")
+	public Employee employeeDetails(@PathVariable Long employeeId)  {
+	return dbUtil.fetchEmployeewithId(employeeId);
 	}
 
 	private String getUserName() {
