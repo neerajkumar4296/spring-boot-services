@@ -15,4 +15,6 @@ public class CountryInfoService {
 	public String getCounrtyInfoFromService(String countryName) {
 		return countryInfoRestRepository.getCountryInfo(countryName);
 	}
+	
+	
 }

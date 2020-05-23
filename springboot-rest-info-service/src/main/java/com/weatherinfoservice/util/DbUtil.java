@@ -84,7 +84,7 @@ public class DbUtil {
 		
 		public List<Address> fetchEmployeeAddresses(Long employeeId ){
 			return empRepository.findById(employeeId)
-					.orElseThrow(()-> new BadServiceRequestException("No Employee Found with the Provided employee Id"))
+					.orElseThrow(()-> new BadServiceRequestException("No Employee Found with the Provided employee Id....hence no Address"))
 					.getAddresses();   
 			 
 					

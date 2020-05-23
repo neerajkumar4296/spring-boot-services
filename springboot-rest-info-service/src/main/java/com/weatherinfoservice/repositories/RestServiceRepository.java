@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import com.weatherinfoservice.model.CoronaCasesSummary;
 import com.weatherinfoservice.model.WeatherReport;
 
 @Repository
@@ -38,9 +39,14 @@ public class RestServiceRepository {
 	@Value("${services.restcountries.basicuri}")
 	private String countryServiceBasicUri;
 	
+	@Value("${services.coronaSummaryService.basicuri}")
+	private String coronaSummaryService;
+	
 	@Autowired
 	@Qualifier("simpleRestTemplate")
 	RestTemplate restTemplate;
+	
+	
 	
 
 	
@@ -67,6 +73,14 @@ public class RestServiceRepository {
 		String countryInfo=restTemplate.getForObject(countryServiceBasicUri, String.class, countryName);
 		logger.info("country info fetched successfully:: " +countryInfo);
 		return countryInfo;
+	}
+	
+	public CoronaCasesSummary getCoronaCasesSummary() {
+		logger.info("making api request to service endpoint url for corona summary report::");
+		//String coronaCasesSummary=restTemplate.getForObject(coronaSummaryService, String.class);
+		 CoronaCasesSummary coronaCasesSummary= restTemplate.getForObject(coronaSummaryService, CoronaCasesSummary.class);
+		logger.info("corona summary fetched successfully:: " +coronaCasesSummary);
+		return coronaCasesSummary;
 	}
 	
 	

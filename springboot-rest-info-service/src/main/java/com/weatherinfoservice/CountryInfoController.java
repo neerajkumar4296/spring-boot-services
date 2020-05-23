@@ -42,7 +42,7 @@ public class CountryInfoController {
 	@ApiOperation(value = "Country information for a given Country:: all information")
 	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/{countryName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String cityWeatherReport(@PathVariable String countryName) throws Exception {
+	public String countryInfo(@PathVariable String countryName) throws Exception {
 		logger.info("getWeatherReport called");
 		return applicationDelegate.getCountryInfo(countryName);
 	}

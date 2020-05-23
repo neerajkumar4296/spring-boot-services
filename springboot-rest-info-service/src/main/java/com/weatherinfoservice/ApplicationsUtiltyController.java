@@ -30,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.weatherinfoservice.delegate.ApplicationDelegate;
 import com.weatherinfoservice.exceptions.BadServiceRequestException;
 import com.weatherinfoservice.model.Address;
+import com.weatherinfoservice.model.CoronaCasesSummary;
+import com.weatherinfoservice.model.CountrySummary;
 import com.weatherinfoservice.model.DivisibilityInputRequest;
 import com.weatherinfoservice.model.Employee;
 import com.weatherinfoservice.model.MathsInputRequest;
@@ -47,7 +49,9 @@ import springfox.documentation.annotations.ApiIgnore;
 public class ApplicationsUtiltyController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationsUtiltyController.class);
-
+	protected static final String CORONA_SUMMARY_JSON_VALUE= "application/vnd.CoronaCasesSummary.v1+json";
+	protected static final String CORONA_COUNTRY_SUMMARY_JSON_VALUE= "application/vnd.CountrySummary.v1+json";
+	
 	@Autowired
 	MathsOperationService mathsOperationService;
 	
@@ -136,6 +140,22 @@ public class ApplicationsUtiltyController {
 	public String integerToRomanLiteral(@PathVariable(name = "number") Integer inputNumber ) {
 		logger.info("integerToRomanLiteral method called in " +this.getClass().getSimpleName()+ " for input number:: " +inputNumber);
 	    return ApplicationUtil.intToRoman(inputNumber);
+	}
+	
+	@ApiOperation(value = "Corona Virus cases summary for the whole world")
+	@ResponseStatus(code = HttpStatus.OK)
+	@RequestMapping(value = "coronaCases/summary", method = RequestMethod.GET, produces=CORONA_SUMMARY_JSON_VALUE)
+	public CoronaCasesSummary coronaVirusSummary(@RequestParam Optional<String> countryName) {
+		logger.info("coronaVirusSummary method called in " +this.getClass().getSimpleName());
+	    return applicationDelegate.getCoronaInfo(countryName);
+	}
+	
+	@ApiOperation(value = "Corona Virus cases summary for the Country Name Provided")
+	@ResponseStatus(code = HttpStatus.OK)
+	@RequestMapping(value = "coronaCases/summary/{countryName}", method = RequestMethod.GET, produces=CORONA_COUNTRY_SUMMARY_JSON_VALUE)
+	public CountrySummary coronaVirusSummaryForCountry(@PathVariable String countryName) {
+		logger.info("coronaVirusSummary method called in " +this.getClass().getSimpleName());
+	    return applicationDelegate.getCoronaInfoForCountry(countryName);
 	}
 	
 	@GetMapping(value = "employees/save")
